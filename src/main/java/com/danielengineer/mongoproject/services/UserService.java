@@ -1,6 +1,9 @@
 package com.danielengineer.mongoproject.services;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.security.auth.login.AccountNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,4 +22,10 @@ public class UserService {
 		return repo.findAll();
 	}
 
+	
+	public User findById(String id) throws AccountNotFoundException {
+		Optional<User> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new AccountNotFoundException("Objeto não encontrado"));
+		}
+	
 }
